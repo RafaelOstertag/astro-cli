@@ -6,7 +6,9 @@
 
     <groupId>ch.guengel.astro.cli</groupId>
     <artifactId>astro-cli</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <name>Astro Library CLI</name>
 
     <properties>
         <kotlin.version>1.6.10</kotlin.version>
