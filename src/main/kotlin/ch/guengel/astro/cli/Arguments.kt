@@ -7,12 +7,13 @@ import kotlinx.cli.ArgType
 import kotlinx.cli.default
 import kotlinx.cli.multiple
 
-enum class Operation {
-    LIST
-}
-
 class Arguments {
     private val parser = ArgParser("astro-cli")
+    val version by parser.option(
+        ArgType.Boolean,
+        description = "Show version"
+    ).default(false)
+
     val update by parser.option(
         ArgType.Boolean,
         shortName = "U",

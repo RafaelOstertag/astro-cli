@@ -14,6 +14,10 @@ fun main(args: Array<String>) {
     val arguments = Arguments()
     arguments.parse(args)
 
+    if (arguments.version) {
+        showVersion()
+    }
+
     XdgDirectories.createDirectories()
     AppDirectories.createDirectories()
 
@@ -27,6 +31,11 @@ fun main(args: Array<String>) {
     listOperation(arguments, catalog)
 }
 
+private fun showVersion() {
+    val version = Version()
+    println("astro-cli ${version.version} (${version.gitId})")
+    System.exit(0)
+}
 
 private fun listOperation(arguments: Arguments, catalog: Catalog) {
     val extendedEntryPrinter = ExtendedEntryPrinterImpl()
