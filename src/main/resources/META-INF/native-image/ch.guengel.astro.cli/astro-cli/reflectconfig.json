@@ -1,5 +1,14 @@
 [
   {
+    "name": "ch.qos.logback.core.ConsoleAppender",
+    "queryAllDeclaredConstructors": true,
+    "queryAllPublicConstructors": true,
+    "queryAllDeclaredMethods": true,
+    "queryAllPublicMethods": true,
+    "allDeclaredClasses": true,
+    "allPublicClasses": true
+  },
+  {
     "name": "kotlin.internal.jdk8.JDK8PlatformImplementations",
     "methods": [
       {
