@@ -1,9 +1,14 @@
 package ch.guengel.astro.cli.actions
 
 import ch.guengel.astro.cli.arguments.EqToHorizonCommand
-import ch.guengel.astro.coordinates.*
+import ch.guengel.astro.coordinates.Angle
+import ch.guengel.astro.coordinates.EquatorialCoordinates
+import ch.guengel.astro.coordinates.GeographicCoordinates
+import ch.guengel.astro.coordinates.toHorizonCoordinates
 import ch.guengel.astro.openngc.parser.DeclinationParser
 import ch.guengel.astro.openngc.parser.RightAscensionParser
+import ch.guengel.astro.time.gstToLST
+import ch.guengel.astro.time.toGST
 
 private const val maxLength = 37
 
