@@ -1,9 +1,6 @@
 package ch.guengel.astro.cli
 
-import ch.guengel.astro.cli.actions.eqToHorizonAction
-import ch.guengel.astro.cli.actions.listAction
-import ch.guengel.astro.cli.actions.setLocationAction
-import ch.guengel.astro.cli.actions.showVersionAction
+import ch.guengel.astro.cli.actions.*
 import ch.guengel.astro.cli.arguments.*
 import ch.guengel.astro.cli.configuration.AppDirectories
 import ch.guengel.astro.cli.configuration.UserConfiguration
@@ -23,6 +20,7 @@ fun main(args: Array<String>) {
             EqToHorizonCommand(userConfiguration, ::eqToHorizonAction),
             SetLocationCommand(::setLocationAction),
             ShowVersionCommand(::showVersionAction),
+            SunCommand(userConfiguration, ::sunAction)
         )
     )
     arguments.parse(args)
