@@ -1,8 +1,6 @@
 package ch.guengel.astro.cli.actions
 
 import ch.guengel.astro.cli.arguments.ListCommand
-import ch.guengel.astro.cli.configuration.AppDirectories
-import ch.guengel.astro.cli.configuration.XdgDirectories
 import ch.guengel.astro.cli.printer.ExtendedEntryPrinterImpl
 import ch.guengel.astro.coordinates.Angle
 import ch.guengel.astro.coordinates.GeographicCoordinates
@@ -10,9 +8,6 @@ import ch.guengel.astro.openngc.ExtendedEntry
 import ch.guengel.astro.openngc.parser.CSVParser
 
 fun listAction(arguments: ListCommand) {
-    XdgDirectories.createDirectories()
-    AppDirectories.createDirectories()
-
     updateCatalog(arguments)
 
     val catalog = CSVParser.parse(OpenNGCFile.catalog)

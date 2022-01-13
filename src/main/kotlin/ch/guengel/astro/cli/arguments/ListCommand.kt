@@ -1,11 +1,14 @@
 package ch.guengel.astro.cli.arguments
 
+import ch.guengel.astro.cli.configuration.UserConfiguration
 import ch.guengel.astro.openngc.CatalogName
 import ch.guengel.astro.openngc.ObjectType
 import kotlinx.cli.*
 
 @OptIn(ExperimentalCli::class)
-class ListCommand(private val action: (ListCommand) -> Unit) : Subcommand("list", "List objects") {
+class ListCommand(userConfiguration: UserConfiguration, private val action: (ListCommand) -> Unit) :
+    Subcommand("list", "List objects") {
+
     val update by option(
         ArgType.Boolean,
         shortName = "U",
@@ -16,13 +19,13 @@ class ListCommand(private val action: (ListCommand) -> Unit) : Subcommand("list"
         ArgType.Double,
         shortName = "l",
         description = "Longitude of the observer in decimal degrees"
-    ).default(8.8322787)
+    ).default(userConfiguration.longitude)
 
     val latitude by option(
         ArgType.Double,
         shortName = "L",
         description = "Latitude of the observer in decimal degrees"
-    ).default(47.5486024)
+    ).default(userConfiguration.latitude)
 
     val time by option(
         ArgType.String,

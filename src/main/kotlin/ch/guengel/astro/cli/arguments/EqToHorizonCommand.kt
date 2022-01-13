@@ -1,24 +1,25 @@
 package ch.guengel.astro.cli.arguments
 
+import ch.guengel.astro.cli.configuration.UserConfiguration
 import kotlinx.cli.ArgType
 import kotlinx.cli.ExperimentalCli
 import kotlinx.cli.Subcommand
 import kotlinx.cli.default
 
 @OptIn(ExperimentalCli::class)
-class EqToHorizonCommand(private val action: (EqToHorizonCommand) -> Unit) :
+class EqToHorizonCommand(userConfiguration: UserConfiguration, private val action: (EqToHorizonCommand) -> Unit) :
     Subcommand("eq-to-altaz", "Equatorial to Horizon Coordinates") {
     val longitude by option(
         ArgType.Double,
         shortName = "l",
         description = "Longitude of the observer in decimal degrees"
-    ).default(8.8322787)
+    ).default(userConfiguration.longitude)
 
     val latitude by option(
         ArgType.Double,
         shortName = "L",
         description = "Latitude of the observer in decimal degrees"
-    ).default(47.5486024)
+    ).default(userConfiguration.latitude)
 
     val time by option(
         ArgType.String,
