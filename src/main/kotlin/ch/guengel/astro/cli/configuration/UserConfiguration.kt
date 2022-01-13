@@ -1,3 +1,4 @@
 package ch.guengel.astro.cli.configuration
 
-//data class UserConfiguration()
+//@Serializable
+//data class UserConfiguration
