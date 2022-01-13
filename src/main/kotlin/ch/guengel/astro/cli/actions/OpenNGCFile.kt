@@ -1,4 +1,4 @@
-package ch.guengel.astro.cli
+package ch.guengel.astro.cli.actions
 
 import ch.guengel.astro.cli.configuration.AppDirectories
 import java.io.BufferedInputStream

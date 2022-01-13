@@ -1,4 +1,4 @@
-package ch.guengel.astro.cli
+package ch.guengel.astro.cli.actions
 
 import java.util.*
 
