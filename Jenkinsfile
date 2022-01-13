@@ -90,7 +90,7 @@ pipeline {
             }
 
             steps {
-                build wait: false, job: '../astro-cli-docker', parameters: [string(name: 'VERSION', value: env.VERSION)]
+                build wait: false, job: '../astro-cli-docker/master', parameters: [string(name: 'VERSION', value: env.VERSION)]
             }
         }
     }
