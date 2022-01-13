@@ -1,7 +1,7 @@
 package ch.guengel.astro.cli.actions
 
 import ch.guengel.astro.cli.arguments.ListCommand
-import ch.guengel.astro.cli.printer.ExtendedEntryPrinterImpl
+import ch.guengel.astro.cli.printer.ExtendedEntryPrinter
 import ch.guengel.astro.coordinates.Angle
 import ch.guengel.astro.coordinates.GeographicCoordinates
 import ch.guengel.astro.openngc.ExtendedEntry
@@ -12,7 +12,7 @@ fun listAction(arguments: ListCommand) {
 
     val catalog = CSVParser.parse(OpenNGCFile.catalog)
 
-    val extendedEntryPrinter = ExtendedEntryPrinterImpl()
+    val extendedEntryPrinter = ExtendedEntryPrinter()
     extendedEntryPrinter.printTitle()
 
     val dateTime = parseTime(arguments.time)
@@ -51,6 +51,11 @@ private fun compileFilters(arguments: ListCommand): List<(ExtendedEntry) -> Bool
 
     if (arguments.minAltitude != null) {
         filters.add { extendedEntry -> extendedEntry.horizontalCoordinates.altitude.asDecimal() >= arguments.minAltitude!! }
+    }
+
+    if (arguments.objects.isNotEmpty()) {
+        val selectedObjects = arguments.objects.toSet()
+        filters.add { extendedEntry -> extendedEntry.entry.name in selectedObjects }
     }
 
     if (arguments.types.isNotEmpty()) {

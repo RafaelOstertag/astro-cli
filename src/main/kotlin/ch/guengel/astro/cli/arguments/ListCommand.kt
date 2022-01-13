@@ -47,6 +47,13 @@ class ListCommand(userConfiguration: UserConfiguration, private val action: (Lis
         description = "Non-Messier objects only"
     )
 
+    val objects by option(
+        ArgType.String,
+        shortName = "o",
+        fullName = "objects",
+        description = "Objects to list"
+    ).multiple()
+
     val subCatalog by option(
         ArgType.Choice<CatalogName>(),
         shortName = "s",
