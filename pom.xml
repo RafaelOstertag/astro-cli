@@ -18,7 +18,7 @@
         <main.class>ch.guengel.astro.cli.CliKt</main.class>
 
         <assertk-jvm.version>0.25</assertk-jvm.version>
-        <astrolib.version>2.0.1</astrolib.version>
+        <astrolib.version>3.0.0</astrolib.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
         <kotlin-csv.version>1.2.0</kotlin-csv.version>

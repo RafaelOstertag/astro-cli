@@ -20,7 +20,8 @@ fun main(args: Array<String>) {
             EqToHorizonCommand(userConfiguration, ::eqToHorizonAction),
             SetLocationCommand(::setLocationAction),
             ShowVersionCommand(::showVersionAction),
-            SunCommand(userConfiguration, ::sunAction)
+            SunCommand(userConfiguration, ::sunAction),
+            MoonCommand(userConfiguration, ::moonAction),
         )
     )
     arguments.parse(args)
