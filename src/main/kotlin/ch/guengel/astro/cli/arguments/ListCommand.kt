@@ -75,8 +75,20 @@ class ListCommand(userConfiguration: UserConfiguration, private val action: (Lis
 
     val minAltitude by option(
         ArgType.Double,
-        fullName = "min-altitude",
+        fullName = "min-alt",
         description = "Minimum altitude"
+    )
+
+    val minAzimuth by option(
+        ArgType.Double,
+        fullName = "min-az",
+        description = "Minimum azimuth"
+    )
+
+    val maxAzimuth by option(
+        ArgType.Double,
+        fullName = "max-az",
+        description = "Maximum azimuth"
     )
 
     val types by option(

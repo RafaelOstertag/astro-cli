@@ -53,6 +53,14 @@ private fun compileFilters(arguments: ListCommand): List<(ExtendedEntry) -> Bool
         filters.add { extendedEntry -> extendedEntry.horizontalCoordinates.altitude.asDecimal() >= arguments.minAltitude!! }
     }
 
+    if (arguments.minAzimuth != null) {
+        filters.add { extendedEntry -> extendedEntry.horizontalCoordinates.azimuth.asDecimal() >= arguments.minAzimuth!! }
+    }
+
+    if (arguments.maxAzimuth != null) {
+        filters.add { extendedEntry -> extendedEntry.horizontalCoordinates.azimuth.asDecimal() <= arguments.maxAzimuth!! }
+    }
+
     if (arguments.objects.isNotEmpty()) {
         val selectedObjects = arguments.objects.toSet()
         filters.add { extendedEntry -> extendedEntry.entry.name in selectedObjects }
