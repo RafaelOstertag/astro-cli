@@ -1,20 +1,20 @@
 package ch.guengel.astro.cli.actions
 
-import ch.guengel.astro.cli.arguments.SunCommand
+import ch.guengel.astro.cli.arguments.MoonCommand
 import ch.guengel.astro.cli.printer.*
 import ch.guengel.astro.coordinates.Angle
 import ch.guengel.astro.coordinates.GeographicCoordinates
 import ch.guengel.astro.coordinates.toHorizonCoordinates
-import ch.guengel.astro.sun.SunPosition
+import ch.guengel.astro.moon.MoonPosition
 import ch.guengel.astro.time.gstToLST
 import ch.guengel.astro.time.toGST
 
-fun sunAction(arguments: SunCommand) {
+fun moonAction(arguments: MoonCommand) {
     val observerDateTime = parseTime(arguments.time)
     val observerCoordinates = GeographicCoordinates(Angle.of(arguments.latitude), Angle.of(arguments.longitude))
-    val sunPositionEquatorialCoordinates = SunPosition.position(observerDateTime)
-    val sunPositionHorizontalCoordinates =
-        sunPositionEquatorialCoordinates.toHorizonCoordinates(observerCoordinates, observerDateTime)
+    val moonPositionEquatorialCoordinates = MoonPosition.position(observerDateTime)
+    val moonPositionHorizontalCoordinates =
+        moonPositionEquatorialCoordinates.toHorizonCoordinates(observerCoordinates, observerDateTime)
 
     val geographicCoordinatesPrinter = GeographicCoordinatesPrinter()
     geographicCoordinatesPrinter.printTitle()
@@ -28,10 +28,10 @@ fun sunAction(arguments: SunCommand) {
 
     val equatorialCoordinatesPrinter = EquatorialCoordinatesPrinter()
     equatorialCoordinatesPrinter.printTitle()
-    equatorialCoordinatesPrinter.print(sunPositionEquatorialCoordinates)
+    equatorialCoordinatesPrinter.print(moonPositionEquatorialCoordinates)
 
     val horizontalCoordinatesPrinter = HorizontalCoordinatesPrinter()
     horizontalCoordinatesPrinter.printTitle()
-    horizontalCoordinatesPrinter.print(HorizontalCoordinatesWithTime(sunPositionHorizontalCoordinates,
+    horizontalCoordinatesPrinter.print(HorizontalCoordinatesWithTime(moonPositionHorizontalCoordinates,
         observerDateTime))
 }
