@@ -4,6 +4,7 @@ import ch.guengel.astro.cli.arguments.ListCommand
 import ch.guengel.astro.cli.printer.ExtendedEntryPrinter
 import ch.guengel.astro.coordinates.Angle
 import ch.guengel.astro.coordinates.GeographicCoordinates
+import ch.guengel.astro.openngc.Entry
 import ch.guengel.astro.openngc.ExtendedEntry
 import ch.guengel.astro.openngc.parser.CSVParser
 
@@ -16,61 +17,85 @@ fun listAction(arguments: ListCommand) {
     extendedEntryPrinter.printTitle()
 
     val dateTime = parseTime(arguments.time)
-    val longitude = Angle.of(arguments.longitude)
-    val latitude = Angle.of(arguments.latitude)
+    val observerCoordinates = GeographicCoordinates(Angle.of(arguments.latitude), Angle.of(arguments.longitude))
 
     val filters = compileFilters(arguments)
 
-    catalog.findExtendedEntries(GeographicCoordinates(latitude, longitude), dateTime) { entry ->
-        filters.map { filter -> filter(entry) }.reduceOrNull { acc, b -> acc && b } ?: true
-    }.forEach { extendedEntryPrinter.print(it) }
+    if (filters.entryFilters.isEmpty() && filters.extendedEntryFilters.isEmpty()) {
+        catalog.findExtendedEntries(observerCoordinates, dateTime) { true }.forEach { extendedEntryPrinter.print(it) }
+    } else if (filters.entryFilters.isEmpty()) {
+        catalog.findExtendedEntries(observerCoordinates, dateTime) { extendedEntry ->
+            filters.extendedEntryFilters.map { filter -> filter(extendedEntry) }.reduceOrNull { acc, b -> acc && b }
+                ?: true
+        }.forEach { extendedEntryPrinter.print(it) }
+    } else if (filters.extendedEntryFilters.isEmpty()) {
+        val entryList = catalog.find { entry ->
+            filters.entryFilters.map { filter -> filter(entry) }.reduceOrNull { acc, b -> acc && b } ?: true
+        }
+        catalog.extendEntries(observerCoordinates, dateTime, entryList).forEach { extendedEntryPrinter.print(it) }
+    } else {
+        val entryList = catalog.find { entry ->
+            filters.entryFilters.map { filter -> filter(entry) }.reduceOrNull { acc, b -> acc && b } ?: true
+        }
+        catalog.extendEntries(observerCoordinates, dateTime, entryList).filter { extendedEntry ->
+            filters.extendedEntryFilters.map { filter -> filter(extendedEntry) }.reduceOrNull { acc, b -> acc && b }
+                ?: true
+        }.forEach { extendedEntryPrinter.print(it) }
+    }
 }
 
-private fun compileFilters(arguments: ListCommand): List<(ExtendedEntry) -> Boolean> {
-    val filters = mutableListOf<(ExtendedEntry) -> Boolean>()
+private data class Filters(
+    val entryFilters: List<(Entry) -> Boolean>,
+    val extendedEntryFilters: List<(ExtendedEntry) -> Boolean>,
+)
+
+private fun compileFilters(arguments: ListCommand): Filters {
+    val extendedEntryFilters = mutableListOf<(ExtendedEntry) -> Boolean>()
+    val entryFilters = mutableListOf<(Entry) -> Boolean>()
 
     if (arguments.subCatalog != null) {
-        filters.add { extendedEntry -> extendedEntry.entry.catalogName == arguments.subCatalog }
+        entryFilters.add { entry -> entry.catalogName == arguments.subCatalog }
     }
 
     if (arguments.messierOnly != null) {
-        filters.add { extendedEntry -> extendedEntry.entry.isMessier() }
+        entryFilters.add { entry -> entry.isMessier() }
     }
 
     if (arguments.nonMessier != null) {
-        filters.add { extendedEntry -> !extendedEntry.entry.isMessier() }
+        entryFilters.add { entry -> !entry.isMessier() }
     }
 
     if (arguments.minVMagnitude != null) {
-        filters.add { extendedEntry -> extendedEntry.entry.vMag != null && (extendedEntry.entry.vMag!! <= arguments.minVMagnitude!!) }
+        entryFilters.add { entry -> entry.vMag != null && (entry.vMag!! <= arguments.minVMagnitude!!) }
     }
 
     if (arguments.maxVMagnitude != null) {
-        filters.add { extendedEntry -> extendedEntry.entry.vMag != null && (extendedEntry.entry.vMag!! >= arguments.maxVMagnitude!!) }
+        entryFilters.add { entry -> entry.vMag != null && (entry.vMag!! >= arguments.maxVMagnitude!!) }
     }
 
     if (arguments.minAltitude != null) {
-        filters.add { extendedEntry -> extendedEntry.horizontalCoordinates.altitude.asDecimal() >= arguments.minAltitude!! }
+        extendedEntryFilters.add { extendedEntry -> extendedEntry.horizontalCoordinates.altitude.asDecimal() >= arguments.minAltitude!! }
     }
 
     if (arguments.minAzimuth != null) {
-        filters.add { extendedEntry -> extendedEntry.horizontalCoordinates.azimuth.asDecimal() >= arguments.minAzimuth!! }
+        extendedEntryFilters.add { extendedEntry -> extendedEntry.horizontalCoordinates.azimuth.asDecimal() >= arguments.minAzimuth!! }
     }
 
     if (arguments.maxAzimuth != null) {
-        filters.add { extendedEntry -> extendedEntry.horizontalCoordinates.azimuth.asDecimal() <= arguments.maxAzimuth!! }
+        extendedEntryFilters.add { extendedEntry -> extendedEntry.horizontalCoordinates.azimuth.asDecimal() <= arguments.maxAzimuth!! }
     }
 
     if (arguments.objects.isNotEmpty()) {
         val selectedObjects = arguments.objects.toSet()
-        filters.add { extendedEntry -> extendedEntry.entry.name in selectedObjects }
+        entryFilters.add { entry -> entry.name in selectedObjects }
     }
 
     if (arguments.types.isNotEmpty()) {
         val selectedTypes = arguments.types.toSet()
-        filters.add { extendedEntry -> extendedEntry.entry.objectType in selectedTypes }
+        entryFilters.add { entry -> entry.objectType in selectedTypes }
     }
-    return filters
+
+    return Filters(entryFilters, extendedEntryFilters)
 }
 
 private fun updateCatalog(arguments: ListCommand) {
