@@ -6,6 +6,7 @@ import ch.guengel.astro.cli.configuration.AppDirectories
 import ch.guengel.astro.cli.configuration.UserConfiguration
 import ch.guengel.astro.cli.configuration.XdgDirectories
 import kotlinx.cli.ExperimentalCli
+import org.fusesource.jansi.AnsiConsole
 
 @OptIn(ExperimentalCli::class)
 fun main(args: Array<String>) {
@@ -24,7 +25,10 @@ fun main(args: Array<String>) {
             MoonCommand(userConfiguration, ::moonAction),
         )
     )
+
+    AnsiConsole.systemInstall()
     arguments.parse(args)
+    AnsiConsole.systemInstall()
 }
 
 
