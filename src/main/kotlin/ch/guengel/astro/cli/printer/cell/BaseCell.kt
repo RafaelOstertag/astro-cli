@@ -5,8 +5,8 @@ import org.fusesource.jansi.Ansi.ansi
 
 abstract class BaseCell(val width: Int) : Cell {
     var alignment: Alignment = Alignment.LEFT
-    var color: Ansi.Color = Ansi.Color.BLACK
-    var backgroundColor: Ansi.Color = Ansi.Color.WHITE
+    var color: Ansi.Color = Ansi.Color.DEFAULT
+    var backgroundColor: Ansi.Color = Ansi.Color.DEFAULT
     var attribute: Ansi.Attribute? = null
     var colorIntensity: Intensity = Intensity.DIM
     var backgroundColorIntensity: Intensity = Intensity.BRIGHT
