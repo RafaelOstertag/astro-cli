@@ -5,6 +5,7 @@ import ch.guengel.astro.cli.printer.*
 import ch.guengel.astro.coordinates.Angle
 import ch.guengel.astro.coordinates.GeographicCoordinates
 import ch.guengel.astro.coordinates.toHorizonCoordinates
+import ch.guengel.astro.moon.MoonPhase
 import ch.guengel.astro.moon.MoonPosition
 import ch.guengel.astro.time.gstToLST
 import ch.guengel.astro.time.toGST
@@ -34,4 +35,8 @@ fun moonAction(arguments: MoonCommand) {
     horizontalCoordinatesPrinter.printTitle()
     horizontalCoordinatesPrinter.print(HorizontalCoordinatesWithTime(moonPositionHorizontalCoordinates,
         observerDateTime))
+
+    val moonPhasePrinter = MoonPhasePrinter()
+    moonPhasePrinter.printTitle()
+    moonPhasePrinter.print(MoonPhase.percentage(observerDateTime))
 }
