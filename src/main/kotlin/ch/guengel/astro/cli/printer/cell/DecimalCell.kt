@@ -11,7 +11,7 @@ class DecimalCell(val value: Double, width: Int) : BaseCell(width) {
     }
 
     override fun textProvider(): String {
-        val formatString = "%${if (leadingZero) '0' else ""}${width}.${decimalPlaces}f"
+        val formatString = "%${if (leadingZero) '0' else "-"}${width}.${decimalPlaces}f"
         return formatString.format(value)
     }
 }

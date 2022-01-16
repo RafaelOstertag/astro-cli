@@ -1,21 +1,35 @@
 package ch.guengel.astro.cli.printer
 
+import ch.guengel.astro.cli.printer.cell.TextCell
+import ch.guengel.astro.cli.printer.cell.printAnsi
+import ch.guengel.astro.cli.printer.cell.printlnAnsi
 import ch.guengel.astro.coordinates.HorizontalCoordinates
-import java.time.OffsetDateTime
+import org.fusesource.jansi.Ansi
 
-data class HorizontalCoordinatesWithTime(
-    val horizontalCoordinates: HorizontalCoordinates,
-    val observerDateTime: OffsetDateTime,
-)
+class HorizontalCoordinatesPrinter : Printer<HorizontalCoordinates> {
+    private val azLabel = TextCell("Az", labelSize).apply { extraPaddingRight = 1 }
 
-class HorizontalCoordinatesPrinter : Printer<HorizontalCoordinatesWithTime> {
     override fun printTitle() {
-        println("-".repeat(maxLength))
+        titleCell.printlnAnsi()
     }
 
-    override fun print(item: HorizontalCoordinatesWithTime) {
-        println("Alt: ${item.horizontalCoordinates.altitude}")
-        println("Az:  ${item.horizontalCoordinates.azimuth}")
-        println("T:   ${item.observerDateTime}")
+    override fun print(item: HorizontalCoordinates) {
+        val foregroundColor = if (item.altitude.asDecimal() < 0.0) {
+            Ansi.Color.RED
+        } else {
+            Ansi.Color.DEFAULT
+        }
+
+        TextCell("Alt", labelSize).apply {
+            color = foregroundColor
+            extraPaddingRight = 1
+        }.printAnsi()
+
+        TextCell(item.altitude.toString(), valueSize).apply {
+            color = foregroundColor
+        }.printlnAnsi()
+
+        azLabel.printAnsi()
+        TextCell(item.azimuth.toString(), valueSize).printlnAnsi()
     }
 }

@@ -15,13 +15,13 @@ internal class DecimalCellTest {
     @Test
     fun `should format decimals`() {
         var decimalCell = DecimalCell(1.25, 6).apply { decimalPlaces = 1 }
-        assertThat(decimalCell.getFormattedText()).isEqualTo("   1.3")
+        assertThat(decimalCell.getFormattedText()).isEqualTo("1.3   ")
 
         decimalCell = DecimalCell(1.25, 6).apply { decimalPlaces = 2 }
-        assertThat(decimalCell.getFormattedText()).isEqualTo("  1.25")
+        assertThat(decimalCell.getFormattedText()).isEqualTo("1.25  ")
 
         decimalCell = DecimalCell(1.25, 6).apply { decimalPlaces = 3 }
-        assertThat(decimalCell.getFormattedText()).isEqualTo(" 1.250")
+        assertThat(decimalCell.getFormattedText()).isEqualTo("1.250 ")
     }
 
     @Test

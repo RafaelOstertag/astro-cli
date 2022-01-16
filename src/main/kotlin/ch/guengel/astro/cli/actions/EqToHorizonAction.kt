@@ -34,7 +34,7 @@ fun eqToHorizonAction(eqToHorizonCommand: EqToHorizonCommand) {
 
         val geographicCoordinatesPrinter = GeographicCoordinatesPrinter()
         geographicCoordinatesPrinter.printTitle()
-        geographicCoordinatesPrinter.print(GeographicCoordinatesWithTime(geographicCoordinates, observerDateTime))
+        geographicCoordinatesPrinter.print(geographicCoordinates)
 
         val siderealTimePrinter = SiderealTimePrinter()
         siderealTimePrinter.printTitle()
@@ -43,6 +43,6 @@ fun eqToHorizonAction(eqToHorizonCommand: EqToHorizonCommand) {
 
         val horizontalCoordinatesPrinter = HorizontalCoordinatesPrinter()
         horizontalCoordinatesPrinter.printTitle()
-        horizontalCoordinatesPrinter.print(HorizontalCoordinatesWithTime(horizontalCoordinates, observerDateTime))
+        horizontalCoordinatesPrinter.print(horizontalCoordinates)
     }
 }

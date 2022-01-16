@@ -19,7 +19,7 @@ fun moonAction(arguments: MoonCommand) {
 
     val geographicCoordinatesPrinter = GeographicCoordinatesPrinter()
     geographicCoordinatesPrinter.printTitle()
-    geographicCoordinatesPrinter.print(GeographicCoordinatesWithTime(observerCoordinates, observerDateTime))
+    geographicCoordinatesPrinter.print(observerCoordinates)
 
     val gst = observerDateTime.toGST()
     val lst = gstToLST(gst, observerCoordinates)
@@ -33,8 +33,11 @@ fun moonAction(arguments: MoonCommand) {
 
     val horizontalCoordinatesPrinter = HorizontalCoordinatesPrinter()
     horizontalCoordinatesPrinter.printTitle()
-    horizontalCoordinatesPrinter.print(HorizontalCoordinatesWithTime(moonPositionHorizontalCoordinates,
-        observerDateTime))
+    horizontalCoordinatesPrinter.print(moonPositionHorizontalCoordinates)
+
+    val offsetDateTimePrinter = OffsetDateTimePrinter()
+    offsetDateTimePrinter.printTitle()
+    offsetDateTimePrinter.print(observerDateTime)
 
     val moonPhasePrinter = MoonPhasePrinter()
     moonPhasePrinter.printTitle()
