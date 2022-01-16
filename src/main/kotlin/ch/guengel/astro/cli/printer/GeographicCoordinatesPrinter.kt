@@ -1,21 +1,23 @@
 package ch.guengel.astro.cli.printer
 
+import ch.guengel.astro.cli.printer.cell.TextCell
+import ch.guengel.astro.cli.printer.cell.printAnsi
+import ch.guengel.astro.cli.printer.cell.printlnAnsi
 import ch.guengel.astro.coordinates.GeographicCoordinates
-import java.time.OffsetDateTime
 
-data class GeographicCoordinatesWithTime(
-    val geographicCoordinates: GeographicCoordinates,
-    val observerDateTime: OffsetDateTime,
-)
+class GeographicCoordinatesPrinter : Printer<GeographicCoordinates> {
+    private val lonLabel = TextCell("Lon", labelSize).apply { extraPaddingRight = 1 }
+    private val latLabel = TextCell("Lat", labelSize).apply { extraPaddingRight = 1 }
 
-class GeographicCoordinatesPrinter : Printer<GeographicCoordinatesWithTime> {
     override fun printTitle() {
-        println("-".repeat(maxLength))
+        titleCell.printlnAnsi()
     }
 
-    override fun print(item: GeographicCoordinatesWithTime) {
-        println("Lon: ${item.geographicCoordinates.longitude}")
-        println("Lat: ${item.geographicCoordinates.latitude}")
-        println("T:   ${item.observerDateTime}")
+    override fun print(item: GeographicCoordinates) {
+        lonLabel.printAnsi()
+        TextCell(item.longitude.toString(), valueSize).printlnAnsi()
+
+        latLabel.printAnsi()
+        TextCell(item.latitude.toString(), valueSize).printlnAnsi()
     }
 }

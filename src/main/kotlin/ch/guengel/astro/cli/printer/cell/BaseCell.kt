@@ -53,3 +53,11 @@ abstract class BaseCell(val width: Int) : Cell {
         return ansiPrinter.a(getFormattedText()).reset().toString()
     }
 }
+
+fun BaseCell.printAnsi() {
+    print(this.getAnsiText())
+}
+
+fun BaseCell.printlnAnsi() {
+    println(this.getAnsiText())
+}

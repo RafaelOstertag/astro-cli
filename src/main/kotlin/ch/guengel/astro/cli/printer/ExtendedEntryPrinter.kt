@@ -1,47 +1,45 @@
 package ch.guengel.astro.cli.printer
 
-import ch.guengel.astro.cli.printer.cell.Alignment
-import ch.guengel.astro.cli.printer.cell.DecimalCell
-import ch.guengel.astro.cli.printer.cell.Intensity
-import ch.guengel.astro.cli.printer.cell.TextCell
+import ch.guengel.astro.cli.printer.cell.*
 import ch.guengel.astro.openngc.ExtendedEntry
 import ch.guengel.astro.openngc.ObjectType
 import org.fusesource.jansi.Ansi
 
 class ExtendedEntryPrinter : Printer<ExtendedEntry> {
-    private val formatString = "%s %s %s %s %12s %16s %16s %16s"
+    private val title = listOf(
+        TextCell("Objects", 8).apply {
+            extraPaddingRight = 1
+            attribute = Ansi.Attribute.UNDERLINE
+        },
+        TextCell("Type", 22).apply {
+            extraPaddingRight = 1
+            attribute = Ansi.Attribute.UNDERLINE
+        },
+        TextCell("V-Mag", 5).apply {
+            extraPaddingRight = 1
+            attribute = Ansi.Attribute.UNDERLINE
+        },
+        TextCell("Mes", 3).apply {
+            extraPaddingRight = 2
+            attribute = Ansi.Attribute.UNDERLINE
+        },
+        TextCell("RA", 11).apply {
+            extraPaddingRight = 1
+            attribute = Ansi.Attribute.UNDERLINE
+        },
+        TextCell("Dec", 14).apply {
+            extraPaddingRight = 2
+            attribute = Ansi.Attribute.UNDERLINE
+        },
+        TextCell("Alt", 14).apply {
+            extraPaddingRight = 1
+            attribute = Ansi.Attribute.UNDERLINE
+        },
+        TextCell("Az", 14).apply { attribute = Ansi.Attribute.UNDERLINE }
+    )
+
     override fun printTitle() {
-        listOf(
-            TextCell("Objects", 8).apply {
-                extraPaddingRight = 1
-                attribute = Ansi.Attribute.UNDERLINE
-            },
-            TextCell("Type", 22).apply {
-                extraPaddingRight = 1
-                attribute = Ansi.Attribute.UNDERLINE
-            },
-            TextCell("V-Mag", 5).apply {
-                extraPaddingRight = 1
-                attribute = Ansi.Attribute.UNDERLINE
-            },
-            TextCell("Mes", 3).apply {
-                extraPaddingRight = 2
-                attribute = Ansi.Attribute.UNDERLINE
-            },
-            TextCell("RA", 11).apply {
-                extraPaddingRight = 1
-                attribute = Ansi.Attribute.UNDERLINE
-            },
-            TextCell("Dec", 14).apply {
-                extraPaddingRight = 2
-                attribute = Ansi.Attribute.UNDERLINE
-            },
-            TextCell("Alt", 14).apply {
-                extraPaddingRight = 1
-                attribute = Ansi.Attribute.UNDERLINE
-            },
-            TextCell("Az", 14).apply { attribute = Ansi.Attribute.UNDERLINE }
-        ).forEach { print(it.getAnsiText()) }
+        title.forEach { it.printAnsi() }
         println()
     }
 
@@ -115,7 +113,7 @@ class ExtendedEntryPrinter : Printer<ExtendedEntry> {
             TextCell(item.horizontalCoordinates.azimuth.toString(), 14).apply {
                 alignment = Alignment.RIGHT
             }
-        ).forEach { print(it.getAnsiText()) }
+        ).forEach { it.printAnsi() }
         println()
     }
 }

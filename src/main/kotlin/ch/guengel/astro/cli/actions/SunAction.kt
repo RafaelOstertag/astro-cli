@@ -18,7 +18,7 @@ fun sunAction(arguments: SunCommand) {
 
     val geographicCoordinatesPrinter = GeographicCoordinatesPrinter()
     geographicCoordinatesPrinter.printTitle()
-    geographicCoordinatesPrinter.print(GeographicCoordinatesWithTime(observerCoordinates, observerDateTime))
+    geographicCoordinatesPrinter.print(observerCoordinates)
 
     val gst = observerDateTime.toGST()
     val lst = gstToLST(gst, observerCoordinates)
@@ -32,6 +32,9 @@ fun sunAction(arguments: SunCommand) {
 
     val horizontalCoordinatesPrinter = HorizontalCoordinatesPrinter()
     horizontalCoordinatesPrinter.printTitle()
-    horizontalCoordinatesPrinter.print(HorizontalCoordinatesWithTime(sunPositionHorizontalCoordinates,
-        observerDateTime))
+    horizontalCoordinatesPrinter.print(sunPositionHorizontalCoordinates)
+
+    val offsetDateTimePrinter = OffsetDateTimePrinter()
+    offsetDateTimePrinter.printTitle()
+    offsetDateTimePrinter.print(observerDateTime)
 }
