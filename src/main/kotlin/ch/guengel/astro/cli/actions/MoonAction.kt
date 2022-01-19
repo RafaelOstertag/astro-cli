@@ -31,7 +31,7 @@ fun moonAction(arguments: MoonCommand) {
     equatorialCoordinatesPrinter.printTitle()
     equatorialCoordinatesPrinter.print(moonPositionEquatorialCoordinates)
 
-    val horizontalCoordinatesPrinter = HorizontalCoordinatesPrinter()
+    val horizontalCoordinatesPrinter = HorizontalCoordinatesPrinter(negativeAltRed = false)
     horizontalCoordinatesPrinter.printTitle()
     horizontalCoordinatesPrinter.print(moonPositionHorizontalCoordinates)
 

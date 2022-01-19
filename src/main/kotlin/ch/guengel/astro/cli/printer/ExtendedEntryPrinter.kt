@@ -108,7 +108,8 @@ class ExtendedEntryPrinter : Printer<ExtendedEntry> {
             TextCell(item.horizontalCoordinates.altitude.toString(), 14).apply {
                 extraPaddingRight = 1
                 alignment = Alignment.RIGHT
-                if (item.horizontalCoordinates.altitude.asDecimal() < 0.0) color = Ansi.Color.RED
+                if (item.horizontalCoordinates.altitude.asDecimal() < 0.0) color = Ansi.Color.RED else color =
+                    Ansi.Color.GREEN
             },
             TextCell(item.horizontalCoordinates.azimuth.toString(), 14).apply {
                 alignment = Alignment.RIGHT
