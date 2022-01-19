@@ -6,7 +6,7 @@ import ch.guengel.astro.cli.printer.cell.printlnAnsi
 import ch.guengel.astro.coordinates.HorizontalCoordinates
 import org.fusesource.jansi.Ansi
 
-class HorizontalCoordinatesPrinter : Printer<HorizontalCoordinates> {
+class HorizontalCoordinatesPrinter(val negativeAltRed: Boolean = true) : Printer<HorizontalCoordinates> {
     private val azLabel = TextCell("Az", labelSize).apply { extraPaddingRight = 1 }
 
     override fun printTitle() {
@@ -15,9 +15,9 @@ class HorizontalCoordinatesPrinter : Printer<HorizontalCoordinates> {
 
     override fun print(item: HorizontalCoordinates) {
         val foregroundColor = if (item.altitude.asDecimal() < 0.0) {
-            Ansi.Color.RED
+            if (negativeAltRed) Ansi.Color.RED else Ansi.Color.GREEN
         } else {
-            Ansi.Color.DEFAULT
+            if (negativeAltRed) Ansi.Color.GREEN else Ansi.Color.RED
         }
 
         TextCell("Alt", labelSize).apply {

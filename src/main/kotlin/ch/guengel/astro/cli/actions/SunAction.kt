@@ -30,7 +30,7 @@ fun sunAction(arguments: SunCommand) {
     equatorialCoordinatesPrinter.printTitle()
     equatorialCoordinatesPrinter.print(sunPositionEquatorialCoordinates)
 
-    val horizontalCoordinatesPrinter = HorizontalCoordinatesPrinter()
+    val horizontalCoordinatesPrinter = HorizontalCoordinatesPrinter(negativeAltRed = false)
     horizontalCoordinatesPrinter.printTitle()
     horizontalCoordinatesPrinter.print(sunPositionHorizontalCoordinates)
 
