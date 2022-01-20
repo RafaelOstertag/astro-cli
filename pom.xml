@@ -7,6 +7,7 @@
     <groupId>ch.guengel.astro.cli</groupId>
     <artifactId>astro-cli</artifactId>
     <version>2.7.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <name>Astro Library CLI</name>
 
@@ -32,7 +33,7 @@
         <compiler-plugin.version>3.9.0</compiler-plugin.version>
         <dependency-check-maven.version>6.5.3</dependency-check-maven.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
-        <maven-assembly-plugin.version>2.6</maven-assembly-plugin.version>
+        <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <git-commit-id-maven-plugin.version>5.0.0</git-commit-id-maven-plugin.version>
