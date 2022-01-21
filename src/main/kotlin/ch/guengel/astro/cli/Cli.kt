@@ -28,7 +28,7 @@ fun main(args: Array<String>) {
 
     AnsiConsole.systemInstall()
     arguments.parse(args)
-    AnsiConsole.systemInstall()
+    AnsiConsole.systemUninstall()
 }
 
 
