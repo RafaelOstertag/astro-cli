@@ -3,12 +3,11 @@ package ch.guengel.astro.cli.arguments
 import ch.guengel.astro.cli.configuration.UserConfiguration
 import kotlinx.cli.ArgType
 import kotlinx.cli.ExperimentalCli
-import kotlinx.cli.Subcommand
 import kotlinx.cli.default
 
 @OptIn(ExperimentalCli::class)
 class SunCommand(userConfiguration: UserConfiguration, private val action: (SunCommand) -> Unit) :
-    Subcommand("sun", "Show Sun information") {
+    BaseSubcommand("sun", "Show Sun information") {
     val longitude by option(
         ArgType.Double,
         shortName = "l",
@@ -27,7 +26,7 @@ class SunCommand(userConfiguration: UserConfiguration, private val action: (SunC
         description = "Local time of the observer [YYYY-MM-dd'T'hh:mm:ss+HH:MM|'now']"
     ).default("now")
 
-    override fun execute() {
+    override fun run() {
         action(this)
     }
 }

@@ -15,20 +15,26 @@ fun main(args: Array<String>) {
 
     val userConfiguration = UserConfiguration.load()
 
-    val arguments = Arguments(
-        listOf(
-            ListCommand(userConfiguration, ::listAction),
-            EqToHorizonCommand(userConfiguration, ::eqToHorizonAction),
-            SetLocationCommand(::setLocationAction),
-            ShowVersionCommand(::showVersionAction),
-            SunCommand(userConfiguration, ::sunAction),
-            MoonCommand(userConfiguration, ::moonAction),
-        )
+    val commands = listOf(
+        ListCommand(userConfiguration, ::listAction),
+        EqToHorizonCommand(userConfiguration, ::eqToHorizonAction),
+        SetLocationCommand(::setLocationAction),
+        ShowVersionCommand(::showVersionAction),
+        SunCommand(userConfiguration, ::sunAction),
+        MoonCommand(userConfiguration, ::moonAction)
     )
+    val arguments = Arguments(commands)
 
-    AnsiConsole.systemInstall()
     arguments.parse(args)
-    AnsiConsole.systemUninstall()
+    if (!arguments.noColor) {
+        AnsiConsole.systemInstall()
+    }
+
+    commands.filter { it.called }.forEach { it.run() }
+
+    if (!arguments.noColor) {
+        AnsiConsole.systemUninstall()
+    }
 }
 
 
