@@ -3,7 +3,6 @@ package ch.guengel.astro.cli.configuration
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
 
-
 private val configFile = AppDirectories.config.resolve("config.yaml")
 
 class UserConfiguration {
