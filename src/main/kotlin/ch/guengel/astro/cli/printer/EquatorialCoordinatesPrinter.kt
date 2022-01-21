@@ -1,8 +1,8 @@
 package ch.guengel.astro.cli.printer
 
 import ch.guengel.astro.cli.printer.cell.TextCell
-import ch.guengel.astro.cli.printer.cell.printAnsi
-import ch.guengel.astro.cli.printer.cell.printlnAnsi
+import ch.guengel.astro.cli.printer.cell.print
+import ch.guengel.astro.cli.printer.cell.println
 import ch.guengel.astro.coordinates.EquatorialCoordinates
 
 class EquatorialCoordinatesPrinter : Printer<EquatorialCoordinates> {
@@ -10,14 +10,14 @@ class EquatorialCoordinatesPrinter : Printer<EquatorialCoordinates> {
     private val decLabel = TextCell("Dec", labelSize).apply { extraPaddingRight = 1 }
 
     override fun printTitle() {
-        titleCell.printlnAnsi()
+        titleCell.println()
     }
 
     override fun print(item: EquatorialCoordinates) {
-        raLabel.printAnsi()
-        TextCell(item.rightAscension.toString(), valueSize).printlnAnsi()
+        raLabel.print()
+        TextCell(item.rightAscension.toString(), valueSize).println()
 
-        decLabel.printAnsi()
-        TextCell(item.declination.toString(), valueSize).printlnAnsi()
+        decLabel.print()
+        TextCell(item.declination.toString(), valueSize).println()
     }
 }

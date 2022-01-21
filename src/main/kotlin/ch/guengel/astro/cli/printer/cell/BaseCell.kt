@@ -2,6 +2,7 @@ package ch.guengel.astro.cli.printer.cell
 
 import org.fusesource.jansi.Ansi
 import org.fusesource.jansi.Ansi.ansi
+import org.fusesource.jansi.AnsiConsole
 
 abstract class BaseCell(val width: Int) : Cell {
     var alignment: Alignment = Alignment.LEFT
@@ -54,10 +55,16 @@ abstract class BaseCell(val width: Int) : Cell {
     }
 }
 
-fun BaseCell.printAnsi() {
-    print(this.getAnsiText())
+fun BaseCell.print() {
+    if (AnsiConsole.isInstalled())
+        print(getAnsiText())
+    else
+        print(getFormattedText())
 }
 
-fun BaseCell.printlnAnsi() {
-    println(this.getAnsiText())
+fun BaseCell.println() {
+    if (AnsiConsole.isInstalled())
+        println(getAnsiText())
+    else
+        println(getFormattedText())
 }

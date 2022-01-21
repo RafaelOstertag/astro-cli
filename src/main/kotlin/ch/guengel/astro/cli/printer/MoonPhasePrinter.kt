@@ -5,7 +5,7 @@ import org.fusesource.jansi.Ansi
 
 class MoonPhasePrinter : Printer<Double> {
     override fun printTitle() {
-        titleCell.printlnAnsi()
+        titleCell.println()
     }
 
     override fun print(item: Double) {
@@ -20,12 +20,12 @@ class MoonPhasePrinter : Printer<Double> {
         TextCell("Phase", labelSize).apply {
             extraPaddingRight = 1
             color = foregroundColor
-        }.printAnsi()
+        }.print()
 
         DecimalCell(item, valueSize).apply {
             alignment = Alignment.LEFT
             decimalPlaces = 2
             color = foregroundColor
-        }.printlnAnsi()
+        }.println()
     }
 }
