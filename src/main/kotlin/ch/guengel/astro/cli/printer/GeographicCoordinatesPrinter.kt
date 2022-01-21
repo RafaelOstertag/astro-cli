@@ -1,8 +1,8 @@
 package ch.guengel.astro.cli.printer
 
 import ch.guengel.astro.cli.printer.cell.TextCell
-import ch.guengel.astro.cli.printer.cell.printAnsi
-import ch.guengel.astro.cli.printer.cell.printlnAnsi
+import ch.guengel.astro.cli.printer.cell.print
+import ch.guengel.astro.cli.printer.cell.println
 import ch.guengel.astro.coordinates.GeographicCoordinates
 
 class GeographicCoordinatesPrinter : Printer<GeographicCoordinates> {
@@ -10,14 +10,14 @@ class GeographicCoordinatesPrinter : Printer<GeographicCoordinates> {
     private val latLabel = TextCell("Lat", labelSize).apply { extraPaddingRight = 1 }
 
     override fun printTitle() {
-        titleCell.printlnAnsi()
+        titleCell.println()
     }
 
     override fun print(item: GeographicCoordinates) {
-        lonLabel.printAnsi()
-        TextCell(item.longitude.toString(), valueSize).printlnAnsi()
+        lonLabel.print()
+        TextCell(item.longitude.toString(), valueSize).println()
 
-        latLabel.printAnsi()
-        TextCell(item.latitude.toString(), valueSize).printlnAnsi()
+        latLabel.print()
+        TextCell(item.latitude.toString(), valueSize).println()
     }
 }

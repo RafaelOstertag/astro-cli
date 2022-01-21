@@ -1,8 +1,8 @@
 package ch.guengel.astro.cli.printer
 
 import ch.guengel.astro.cli.printer.cell.TextCell
-import ch.guengel.astro.cli.printer.cell.printAnsi
-import ch.guengel.astro.cli.printer.cell.printlnAnsi
+import ch.guengel.astro.cli.printer.cell.print
+import ch.guengel.astro.cli.printer.cell.println
 import ch.guengel.astro.coordinates.HorizontalCoordinates
 import org.fusesource.jansi.Ansi
 
@@ -10,7 +10,7 @@ class HorizontalCoordinatesPrinter(val negativeAltRed: Boolean = true) : Printer
     private val azLabel = TextCell("Az", labelSize).apply { extraPaddingRight = 1 }
 
     override fun printTitle() {
-        titleCell.printlnAnsi()
+        titleCell.println()
     }
 
     override fun print(item: HorizontalCoordinates) {
@@ -23,13 +23,13 @@ class HorizontalCoordinatesPrinter(val negativeAltRed: Boolean = true) : Printer
         TextCell("Alt", labelSize).apply {
             color = foregroundColor
             extraPaddingRight = 1
-        }.printAnsi()
+        }.print()
 
         TextCell(item.altitude.toString(), valueSize).apply {
             color = foregroundColor
-        }.printlnAnsi()
+        }.println()
 
-        azLabel.printAnsi()
-        TextCell(item.azimuth.toString(), valueSize).printlnAnsi()
+        azLabel.print()
+        TextCell(item.azimuth.toString(), valueSize).println()
     }
 }

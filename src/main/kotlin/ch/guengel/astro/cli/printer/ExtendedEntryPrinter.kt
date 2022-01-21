@@ -39,7 +39,7 @@ class ExtendedEntryPrinter : Printer<ExtendedEntry> {
     )
 
     override fun printTitle() {
-        title.forEach { it.printAnsi() }
+        title.forEach { it.print() }
         println()
     }
 
@@ -114,7 +114,7 @@ class ExtendedEntryPrinter : Printer<ExtendedEntry> {
             TextCell(item.horizontalCoordinates.azimuth.toString(), 14).apply {
                 alignment = Alignment.RIGHT
             }
-        ).forEach { it.printAnsi() }
+        ).forEach { it.print() }
         println()
     }
 }

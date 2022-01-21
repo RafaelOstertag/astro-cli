@@ -7,7 +7,7 @@ import kotlinx.cli.*
 
 @OptIn(ExperimentalCli::class)
 class ListCommand(userConfiguration: UserConfiguration, private val action: (ListCommand) -> Unit) :
-    Subcommand("list", "List objects") {
+    BaseSubcommand("list", "List objects") {
 
     val update by option(
         ArgType.Boolean,
@@ -51,8 +51,8 @@ class ListCommand(userConfiguration: UserConfiguration, private val action: (Lis
         ArgType.String,
         shortName = "o",
         fullName = "objects",
-        description = "Objects to list"
-    ).multiple()
+        description = "Objects to list. Separate multiple objects by `,`"
+    ).multiple().delimiter(",")
 
     val subCatalog by option(
         ArgType.Choice<CatalogName>(),
@@ -93,10 +93,10 @@ class ListCommand(userConfiguration: UserConfiguration, private val action: (Lis
 
     val types by option(
         ArgType.Choice<ObjectType>(),
-        description = "Only this types"
-    ).multiple()
+        description = "Only this types. Separate multiple types by `,`"
+    ).multiple().delimiter(",")
 
-    override fun execute() {
+    override fun run() {
         action(this)
     }
 }

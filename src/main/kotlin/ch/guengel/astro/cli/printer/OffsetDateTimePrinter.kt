@@ -1,8 +1,8 @@
 package ch.guengel.astro.cli.printer
 
 import ch.guengel.astro.cli.printer.cell.TextCell
-import ch.guengel.astro.cli.printer.cell.printAnsi
-import ch.guengel.astro.cli.printer.cell.printlnAnsi
+import ch.guengel.astro.cli.printer.cell.print
+import ch.guengel.astro.cli.printer.cell.println
 import ch.guengel.astro.time.toUT
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
@@ -14,17 +14,17 @@ class OffsetDateTimePrinter : Printer<OffsetDateTime> {
     private val lctLabel = TextCell("LCT", labelSize).apply { extraPaddingRight = 1 }
 
     override fun printTitle() {
-        titleCell.printlnAnsi()
+        titleCell.println()
     }
 
     override fun print(item: OffsetDateTime) {
-        utLabel.printAnsi()
+        utLabel.print()
         TextCell(
             item.toUT().format(dateTimeFormatter).toString(), valueSize
-        ).printlnAnsi()
+        ).println()
 
 
-        lctLabel.printAnsi()
-        TextCell(item.format(dateTimeFormatter).toString(), valueSize).printlnAnsi()
+        lctLabel.print()
+        TextCell(item.format(dateTimeFormatter).toString(), valueSize).println()
     }
 }

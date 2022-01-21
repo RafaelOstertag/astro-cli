@@ -3,12 +3,11 @@ package ch.guengel.astro.cli.arguments
 import ch.guengel.astro.cli.configuration.UserConfiguration
 import kotlinx.cli.ArgType
 import kotlinx.cli.ExperimentalCli
-import kotlinx.cli.Subcommand
 import kotlinx.cli.default
 
 @OptIn(ExperimentalCli::class)
 class MoonCommand(userConfiguration: UserConfiguration, private val action: (MoonCommand) -> Unit) :
-    Subcommand("moon", "Show Moon information") {
+    BaseSubcommand("moon", "Show Moon information") {
     val longitude by option(
         ArgType.Double,
         shortName = "l",
@@ -27,7 +26,7 @@ class MoonCommand(userConfiguration: UserConfiguration, private val action: (Moo
         description = "Local time of the observer [YYYY-MM-dd'T'hh:mm:ss+HH:MM|'now']"
     ).default("now")
 
-    override fun execute() {
+    override fun run() {
         action(this)
     }
 }
