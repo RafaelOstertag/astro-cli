@@ -41,7 +41,6 @@ class EqToHorizonCommand(userConfiguration: UserConfiguration, private val actio
         fullName = "declination",
         description = "Declination in degrees [dd:min:sec]")
 
-
     override fun execute() {
         action(this)
     }
