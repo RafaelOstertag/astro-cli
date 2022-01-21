@@ -51,8 +51,8 @@ class ListCommand(userConfiguration: UserConfiguration, private val action: (Lis
         ArgType.String,
         shortName = "o",
         fullName = "objects",
-        description = "Objects to list"
-    ).multiple()
+        description = "Objects to list. Separate multiple objects by `,`"
+    ).multiple().delimiter(",")
 
     val subCatalog by option(
         ArgType.Choice<CatalogName>(),
@@ -93,8 +93,8 @@ class ListCommand(userConfiguration: UserConfiguration, private val action: (Lis
 
     val types by option(
         ArgType.Choice<ObjectType>(),
-        description = "Only this types"
-    ).multiple()
+        description = "Only this types. Separate multiple types by `,`"
+    ).multiple().delimiter(",")
 
     override fun execute() {
         action(this)
