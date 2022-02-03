@@ -1,11 +1,15 @@
 package ch.guengel.astro.cli.actions
 
 import ch.guengel.astro.cli.arguments.EqToHorizonCommand
-import ch.guengel.astro.cli.printer.*
+import ch.guengel.astro.cli.printer.EquatorialCoordinatesPrinter
+import ch.guengel.astro.cli.printer.GeographicCoordinatesPrinter
+import ch.guengel.astro.cli.printer.HorizontalCoordinatesPrinter
+import ch.guengel.astro.cli.printer.SiderealTime
+import ch.guengel.astro.cli.printer.SiderealTimePrinter
 import ch.guengel.astro.coordinates.Angle
 import ch.guengel.astro.coordinates.EquatorialCoordinates
 import ch.guengel.astro.coordinates.GeographicCoordinates
-import ch.guengel.astro.coordinates.toHorizonCoordinates
+import ch.guengel.astro.coordinates.toHorizontalCoordinates
 import ch.guengel.astro.openngc.parser.RightAscensionParser
 import ch.guengel.astro.time.gstToLST
 import ch.guengel.astro.time.toGST
@@ -23,7 +27,8 @@ fun eqToHorizonAction(eqToHorizonCommand: EqToHorizonCommand) {
     val equatorialCoordinates = EquatorialCoordinates(rightAscension, declination)
 
     val horizontalCoordinates =
-        EquatorialCoordinates(rightAscension, declination).toHorizonCoordinates(geographicCoordinates, observerDateTime)
+        EquatorialCoordinates(rightAscension, declination).toHorizontalCoordinates(geographicCoordinates,
+            observerDateTime)
 
     if (eqToHorizonCommand.terse) {
         println("Alt,Az: ${horizontalCoordinates.altitude},${horizontalCoordinates.azimuth}")

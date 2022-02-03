@@ -4,8 +4,8 @@ import ch.guengel.astro.cli.arguments.ListCommand
 import ch.guengel.astro.cli.printer.ExtendedEntryPrinter
 import ch.guengel.astro.coordinates.Angle
 import ch.guengel.astro.coordinates.GeographicCoordinates
-import ch.guengel.astro.openngc.Entry
-import ch.guengel.astro.openngc.ExtendedEntry
+import ch.guengel.astro.openngc.ExtendedNgcEntry
+import ch.guengel.astro.openngc.NgcEntry
 import ch.guengel.astro.openngc.parser.CSVParser
 
 fun listAction(arguments: ListCommand) {
@@ -45,16 +45,16 @@ fun listAction(arguments: ListCommand) {
 }
 
 private data class Filters(
-    val entryFilters: List<(Entry) -> Boolean>,
-    val extendedEntryFilters: List<(ExtendedEntry) -> Boolean>,
+    val entryFilters: List<(NgcEntry) -> Boolean>,
+    val extendedEntryFilters: List<(ExtendedNgcEntry) -> Boolean>,
 )
 
 private fun compileFilters(arguments: ListCommand): Filters {
-    val extendedEntryFilters = mutableListOf<(ExtendedEntry) -> Boolean>()
-    val entryFilters = mutableListOf<(Entry) -> Boolean>()
+    val extendedEntryFilters = mutableListOf<(ExtendedNgcEntry) -> Boolean>()
+    val entryFilters = mutableListOf<(NgcEntry) -> Boolean>()
 
     if (arguments.subCatalog != null) {
-        entryFilters.add { entry -> entry.catalogName == arguments.subCatalog }
+        entryFilters.add { entry -> entry.id.catalogName == arguments.subCatalog }
     }
 
     if (arguments.messierOnly != null) {
