@@ -5,11 +5,11 @@ import ch.guengel.astro.cli.printer.cell.DecimalCell
 import ch.guengel.astro.cli.printer.cell.Intensity
 import ch.guengel.astro.cli.printer.cell.TextCell
 import ch.guengel.astro.cli.printer.cell.print
-import ch.guengel.astro.openngc.ExtendedEntry
+import ch.guengel.astro.openngc.ExtendedNgcEntry
 import ch.guengel.astro.openngc.ObjectType
 import org.fusesource.jansi.Ansi
 
-class ExtendedEntryPrinter : Printer<ExtendedEntry> {
+class ExtendedEntryPrinter : Printer<ExtendedNgcEntry> {
 
 
     private val title = listOf(
@@ -79,33 +79,33 @@ class ExtendedEntryPrinter : Printer<ExtendedEntry> {
             }
         }
 
-    override fun print(item: ExtendedEntry) {
+    override fun print(item: ExtendedNgcEntry) {
         listOf(
-            TextCell(item.entry.name, objectCellWidth).apply {
+            TextCell(item.ngcEntry.name, objectCellWidth).apply {
                 extraPaddingRight = 1
             },
-            objectTypeTextCell(item.entry.objectType),
-            DecimalCell(item.entry.vMag ?: Double.NaN, vMagCellWidth).apply {
+            objectTypeTextCell(item.ngcEntry.objectType),
+            DecimalCell(item.ngcEntry.vMag ?: Double.NaN, vMagCellWidth).apply {
                 extraPaddingRight = 1
                 alignment = Alignment.RIGHT
                 decimalPlaces = 2
-                item.entry.vMag ?: run {
+                item.ngcEntry.vMag ?: run {
                     color = Ansi.Color.WHITE
                     colorIntensity = Intensity.DIM
                 }
             },
-            TextCell(item.entry.messier?.toString() ?: "", mesCellWidth).apply {
+            TextCell(item.ngcEntry.messier?.toString() ?: "", mesCellWidth).apply {
                 extraPaddingRight = 2
                 alignment = Alignment.RIGHT
-                if (item.entry.messier != null) {
+                if (item.ngcEntry.messier != null) {
                     color = Ansi.Color.GREEN
                 }
             },
-            TextCell(item.entry.equatorialCoordinates?.rightAscension.toString(), raCellWidth).apply {
+            TextCell(item.ngcEntry.equatorialCoordinates?.rightAscension.toString(), raCellWidth).apply {
                 extraPaddingRight = 1
                 alignment = Alignment.RIGHT
             },
-            TextCell(item.entry.equatorialCoordinates?.declination.toString(), decCellWidth).apply {
+            TextCell(item.ngcEntry.equatorialCoordinates?.declination.toString(), decCellWidth).apply {
                 extraPaddingRight = 2
                 alignment = Alignment.RIGHT
             },
@@ -119,13 +119,13 @@ class ExtendedEntryPrinter : Printer<ExtendedEntry> {
                 alignment = Alignment.RIGHT
                 extraPaddingRight = 1
             },
-            TextCell(item.entry.commonNames?.joinToString(", ") ?: "", commonNamesCellWidth)
+            TextCell(item.ngcEntry.commonNames?.joinToString(", ") ?: "", commonNamesCellWidth)
         ).forEach { it.print() }
         println()
     }
 
     private companion object {
-        private const val objectCellWidth = 8
+        private const val objectCellWidth = 13
         private const val typeCellWidth = 22
         private const val vMagCellWidth = 5
         private const val mesCellWidth = 3

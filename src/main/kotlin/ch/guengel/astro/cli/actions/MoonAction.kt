@@ -1,10 +1,16 @@
 package ch.guengel.astro.cli.actions
 
 import ch.guengel.astro.cli.arguments.MoonCommand
-import ch.guengel.astro.cli.printer.*
+import ch.guengel.astro.cli.printer.EquatorialCoordinatesPrinter
+import ch.guengel.astro.cli.printer.GeographicCoordinatesPrinter
+import ch.guengel.astro.cli.printer.HorizontalCoordinatesPrinter
+import ch.guengel.astro.cli.printer.MoonPhasePrinter
+import ch.guengel.astro.cli.printer.OffsetDateTimePrinter
+import ch.guengel.astro.cli.printer.SiderealTime
+import ch.guengel.astro.cli.printer.SiderealTimePrinter
 import ch.guengel.astro.coordinates.Angle
 import ch.guengel.astro.coordinates.GeographicCoordinates
-import ch.guengel.astro.coordinates.toHorizonCoordinates
+import ch.guengel.astro.coordinates.toHorizontalCoordinates
 import ch.guengel.astro.moon.MoonPhase
 import ch.guengel.astro.moon.MoonPosition
 import ch.guengel.astro.time.gstToLST
@@ -15,7 +21,7 @@ fun moonAction(arguments: MoonCommand) {
     val observerCoordinates = GeographicCoordinates(Angle.of(arguments.latitude), Angle.of(arguments.longitude))
     val moonPositionEquatorialCoordinates = MoonPosition.position(observerDateTime)
     val moonPositionHorizontalCoordinates =
-        moonPositionEquatorialCoordinates.toHorizonCoordinates(observerCoordinates, observerDateTime)
+        moonPositionEquatorialCoordinates.toHorizontalCoordinates(observerCoordinates, observerDateTime)
 
     val geographicCoordinatesPrinter = GeographicCoordinatesPrinter()
     geographicCoordinatesPrinter.printTitle()

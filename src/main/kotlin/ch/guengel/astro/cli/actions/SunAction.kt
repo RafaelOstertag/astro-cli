@@ -1,10 +1,15 @@
 package ch.guengel.astro.cli.actions
 
 import ch.guengel.astro.cli.arguments.SunCommand
-import ch.guengel.astro.cli.printer.*
+import ch.guengel.astro.cli.printer.EquatorialCoordinatesPrinter
+import ch.guengel.astro.cli.printer.GeographicCoordinatesPrinter
+import ch.guengel.astro.cli.printer.HorizontalCoordinatesPrinter
+import ch.guengel.astro.cli.printer.OffsetDateTimePrinter
+import ch.guengel.astro.cli.printer.SiderealTime
+import ch.guengel.astro.cli.printer.SiderealTimePrinter
 import ch.guengel.astro.coordinates.Angle
 import ch.guengel.astro.coordinates.GeographicCoordinates
-import ch.guengel.astro.coordinates.toHorizonCoordinates
+import ch.guengel.astro.coordinates.toHorizontalCoordinates
 import ch.guengel.astro.sun.SunPosition
 import ch.guengel.astro.time.gstToLST
 import ch.guengel.astro.time.toGST
@@ -14,7 +19,7 @@ fun sunAction(arguments: SunCommand) {
     val observerCoordinates = GeographicCoordinates(Angle.of(arguments.latitude), Angle.of(arguments.longitude))
     val sunPositionEquatorialCoordinates = SunPosition.position(observerDateTime)
     val sunPositionHorizontalCoordinates =
-        sunPositionEquatorialCoordinates.toHorizonCoordinates(observerCoordinates, observerDateTime)
+        sunPositionEquatorialCoordinates.toHorizontalCoordinates(observerCoordinates, observerDateTime)
 
     val geographicCoordinatesPrinter = GeographicCoordinatesPrinter()
     geographicCoordinatesPrinter.printTitle()
