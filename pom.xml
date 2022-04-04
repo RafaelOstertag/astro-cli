@@ -31,7 +31,7 @@
         <snakeyaml.version>1.30</snakeyaml.version>
 
         <compiler-plugin.version>3.9.0</compiler-plugin.version>
-        <dependency-check-maven.version>6.5.3</dependency-check-maven.version>
+        <dependency-check-maven.version>7.0.4</dependency-check-maven.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
