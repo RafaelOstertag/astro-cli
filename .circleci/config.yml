@@ -1,0 +1,54 @@
+version: 2.1
+
+orbs:
+  c: rafaelostertag/common-orb@1.6.0
+
+jobs:
+  trigger-docker-build:
+    docker:
+      - image: cimg/openjdk:11.0
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: Trigger docker build
+          command: .circleci/trigger-docker-build.sh
+
+workflows:
+  build-any-branch:
+    jobs:
+      - c/maven-build-and-test:
+          name: build-and-test
+          sonar-project-key: "ch.guengel.astro.cli:astro-cli"
+          context:
+            - sonar
+            - repository-read
+      - c/maven-deploy-artifacts:
+          name: deploy-maven-artifact
+          requires:
+            - build-and-test
+          context:
+            - maven-repository-write
+      - trigger-docker-build:
+          filters:
+            branches:
+              only:
+                - master
+          context:
+            - circle-ci
+          requires:
+            - deploy-maven-artifact
+
+  daily-dependency-check:
+    triggers:
+      - schedule:
+          cron: "21 4 * * *"
+          filters:
+            branches:
+              only:
+                - master
+                - develop
+    jobs:
+      - c/maven-dependency-check:
+          context:
+            - repository-read
