@@ -26,9 +26,9 @@
         <kotlin-csv.version>1.2.0</kotlin-csv.version>
         <kotlinx-cli.version>0.3.5</kotlinx-cli.version>
         <kotlinx-coroutines.version>1.6.0</kotlinx-coroutines.version>
-        <logback.version>1.2.11</logback.version>
+        <logback.version>1.4.0</logback.version>
         <slf4j.version>2.0.0</slf4j.version>
-        <snakeyaml.version>1.30</snakeyaml.version>
+        <snakeyaml.version>1.31</snakeyaml.version>
 
         <compiler-plugin.version>3.9.0</compiler-plugin.version>
         <dependency-check-maven.version>7.1.0</dependency-check-maven.version>
