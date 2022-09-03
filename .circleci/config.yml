@@ -19,8 +19,7 @@ orbs:
 workflows:
   build-any-branch:
     when:
-      not:
-        *not-schedule-trigger
+      *not-schedule-trigger
     jobs:
       - c/maven-build-and-test:
           name: build-and-test
