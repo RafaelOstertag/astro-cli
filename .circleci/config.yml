@@ -31,8 +31,7 @@ workflows:
 
   build-and-release:
     when:
-      not:
-        *not-schedule-trigger
+      *not-schedule-trigger
     jobs:
       - c/maven-build-and-test:
           name: build-and-test
@@ -59,3 +58,11 @@ workflows:
             - deploy-maven-artifact
           filters:
             *version-tag-only
+
+  dependency-check:
+    when:
+      *schedule-trigger
+    jobs:
+      - c/maven-dependency-check:
+          context:
+            - repository-read
